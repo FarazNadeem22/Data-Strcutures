@@ -20,6 +20,15 @@ class doubleLinkList:
         self.head = None
           
     def print(self, forward = True):
+        """
+            'THIS FUNCTION HAS A BETTER VERSION CALLED prettyPrint()'
+            This function will print the doublely linked list both ways. By default it will print forward if you want to print 
+            the list in reverse the you need to pass in a zero or False as an argument. 
+
+        Args:
+            forward (bool, optional): Default Value True to print the list forward. Passing in a False or ) will make the list print
+                                      in reverse order
+        """
         try:
             if forward:
                 #check if linked List in empty
@@ -49,17 +58,30 @@ class doubleLinkList:
             print("Something went wrong")       
 
     def prettyPrint(self, forward = True):
+        """
+            This function will print the doublely linked list both ways. By default it will print forward if you want to print 
+            the list in reverse the you need to pass in a zero or False as an argument. 
+
+        Args:
+            forward (bool, optional): Default Value True to print the list forward. Passing in a False or ) will make the list print
+                                      in reverse order"""
         try:
             if forward:
-                ptr = self.head   
+                # Find head node 
+                ptr = self.head  
+                # Go upto second last node  
                 while ptr and ptr.next:
+                    # write to screen the value of the node and -> 
                     sys.stdout.write(str(ptr.data)+"->")
+                    # Move pointer forward by one to next node 
                     ptr = ptr.next       
                 if ptr:
+                    # This is the case for first & only or last node just print val
                     print(ptr.data)
                 else:
+                    # List is empty
                     print("Empty List")
-            else:
+            else: # This is the same function just reversed 
                 if self.head is None:
                     print("Empty List")
                 else:
@@ -76,9 +98,17 @@ class doubleLinkList:
             print("Something Went Wrong")
 
     def insert_empty(self,data):
+        """
+            This function will attempt to add a node to an empty doublely linked list
+        Args:
+            data (any number): Value of the node 
+        """
         try:
+            # Check if the list is empty
             if self.head is None:
+                #create new node
                 new_node = Node(data)
+                # have head pointer point to new node 
                 self.head = new_node
             else:
                 print("Linked List is not empty")
@@ -86,6 +116,11 @@ class doubleLinkList:
             print("OOPs Something went wrong")
     
     def insert_start(self,data):
+        """
+            This function will attempt to add a node to the start or head of an existing doublely linked list 
+        Args:
+            data (any number): Value of the node
+        """
         try:
             if self.head is None:
                 self.insert_empty(data) 
@@ -106,6 +141,11 @@ class doubleLinkList:
             print("Something Went Wrong")
             
     def insert_end(self,data):
+        """
+            This function will attempt to add a node to the end of tail of an existing doublely linked list 
+        Args:
+            data (any number): Value of the node
+        """
         try:
             #Check if List in empty 
             if self.head is None:
@@ -127,6 +167,11 @@ class doubleLinkList:
             print("Something Went Wrong")    
 
     def insert_list_end(self, lst):
+        """
+            This function will attempt to elements of a list  as a node to the end of tail  of an existing doublely linked list 
+        Args:
+            data (any number): Value of the node
+        """
         try:
             for element in lst:
                 self.insert_end(element)             
