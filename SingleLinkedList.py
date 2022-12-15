@@ -38,7 +38,7 @@ class LinkedList:
                 ptr = ptr.next
             #now place new_node at the end 
             ptr.next = new_node    
-            new_node.next = None
+            #new_node.next = None
             
     def insert_list(self, lst, reverse = False):
         """Takes a lst and makes a linked list out of it. 
