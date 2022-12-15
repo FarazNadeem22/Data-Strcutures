@@ -24,7 +24,7 @@ class Stack:
             self.head = new_node
  
         # Increment the new node count
-            self.num_nodes += 1
+        self.num_nodes += 1
 
     def pop(self):
         # Check is stack is empty
