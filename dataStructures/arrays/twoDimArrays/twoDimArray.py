@@ -12,6 +12,20 @@ def accessElements2DArray(arr, rowIndex, colIndex):
     else:
         return arr[rowIndex][colIndex]
 
+def traverse2DArray(arr):
+    """
+    Function to traverse a 2D array and print each row with elements separated by commas.
+    Args:
+        arr: A 2D NumPy array to traverse.
+    """
+    for i in range(arr.shape[0]):
+        # Create a comma-separated string for the current row using join()
+        # Convert each element in the row to a string for formatting
+        row = ", ".join(str(arr[i][j]) for j in range(arr.shape[1]))
+        
+        # Print the row with its index
+        print(f"Row[{i}]: {row}")
+
 
 # Define a 2D Array
 # This is a 3x3 identity matrix
@@ -67,16 +81,36 @@ print(newTwoDimArray)
 print()  # Add an extra blank line before printing the next matrix
 
 """********** Access elements in a 2D Arrays **********"""
+
+# Print the 2D Array to provide context to the user
+print("Current 2D Array:")
+print(twoDimArray)
+print()  # Add an extra blank line for readability
+
 while True:
     try:
+        # Prompt the user for row and column indices
         row = int(input("Enter row: "))
         col = int(input("Enter Col: "))
-        break
+        break  # Exit the loop if inputs are valid
     except ValueError as e:
-        print(f"Sorry the program encountered an error while reading you input: \nError:\n{e}\nTry again")
-    #finally:
-        #print("This is just mesage from the finally blocl\n")
-        #continue
+        # Handle invalid input errors (e.g., non-integer values)
+        print(f"Sorry, the program encountered an error while reading your input: \nError:\n{e}\nTry again")
 
-print(f"The element at ({row},{col}) is: {accessElements2DArray(twoDimArray, row, col)}")
-print("")
+# Attempt to access the specified element in the 2D array
+result = accessElements2DArray(twoDimArray, row, col)
+if result is not None:
+    # Print the result if the element is found
+    print(f"The element at ({row},{col}) is: {result}")
+    print()  # Add an extra blank line for readability
+else:
+    # Do nothing if the result is None (e.g., out of bounds)
+    pass
+
+
+"""********** Traversal - 2D Array **********"""
+# Print the 2D Array to provide context to the user
+print("Traversing: Current 2D Array:")
+print(twoDimArray)
+print()  # Add an extra blank line for readability
+traverse2DArray(twoDimArray)
