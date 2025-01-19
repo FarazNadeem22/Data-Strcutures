@@ -81,19 +81,12 @@ def search2DArray(arr: np.ndarray, target: int) -> Tuple[Optional[int], Optional
     return None, None  # Return None, None if the target is not found in the array
 
 
-    
-
-
-
-
 # Define a 2D Array
 # This is a 3x3 identity matrix
-# Each diagonal element is 1, and all other elements are 0
-twoDimArray: np.ndarray = np.array(
-   [[1, 0, 0],
-    [0, 1, 0],
-    [0, 22, 1]]
-)
+# Create a sample 2D array for demonstration
+twoDimArray = np.array([[1, 2, 3], 
+                        [4, 5, 6], 
+                        [7, 8, 9]])
 
 # Print the original 2D Array
 print("Original 2D Array:")
@@ -173,3 +166,26 @@ if row is not None:
     print(f"Target {target} found location ({row}, {col})")
 else:
     print("Target not found")
+
+"********* Delete a Row from the Array ********"
+# Print the 2D Array to provide context to the user
+print("Deleting Row: Current 2D Array:")
+print(twoDimArray)
+print()  # Add an extra blank line for readability
+newArry = np.delete(twoDimArray, 0, axis=0)
+print(newArry)
+print()
+
+""" ********* Delete a Column from the Array ********"""
+# Print the 2D Array to provide context to the user
+print("Deleting Column: Current 2D Array:")
+print(twoDimArray)
+print()  # Add an extra blank line for readability
+
+# Delete the first column (index 0) from the 2D array
+newArry = np.delete(twoDimArray, 0, axis=1)
+
+# Print the modified array after column deletion
+print("Array after deleting the first column:")
+print(newArry)
+print()  # Add an extra blank line for readability
