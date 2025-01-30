@@ -9,9 +9,7 @@ def find_factors(test_number: int) -> None:
     prime_factor_list = []  # List to store prime factors
     
     # Finding factors of the given number
-    for x in range(1, test_number + 1):
-        if test_number % x == 0:
-            factor_list.append(x)
+    factor_list = [x for x in range(1, test_number +1) if test_number % x == 0]
     
     # Check if the number is prime
     if len(factor_list) <= 2:
