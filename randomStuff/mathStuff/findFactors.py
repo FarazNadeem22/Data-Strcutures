@@ -1,3 +1,5 @@
+import time
+
 def find_factors(test_number: int) -> list:
     """
     Finds and prints all factors of a given number, determines if it's prime,
@@ -51,4 +53,6 @@ def get_factors(number: int, prime_factor_list: list) -> None:
 if __name__ == "__main__":
     print("This program will find all the factors of a given number.")
     number = int(input("Please enter the number you want to find factors for: "))
+    t1 = time.time()
     get_factors(number, find_factors(number))
+    print(f'Time taken: {time.time()-t1:.6f} seconds')
