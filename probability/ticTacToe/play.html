@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic Tac Toe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 32px;
+            margin: 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: transform 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: scale(1.1);
+        }
+
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(3, 120px);
+            grid-template-rows: repeat(3, 120px);
+            gap: 5px;
+            margin: 30px auto;
+            background-color: transparent;
+            border: none;
+        }
+
+        .cell {
+            width: 120px;
+            height: 120px;
+            background-color: #f9f9f9;
+            border: 2px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .cell.X {
+            color: #00f;
+            text-shadow: 2px 2px 4px #ccc;
+        }
+
+        .cell.O {
+            color: #f09;
+            text-shadow: 2px 2px 4px #ccc;
+        }
+
+        .status {
+            margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .status.X {
+            color: #00f;
+        }
+
+        .status.O {
+            color: #f09;
+        }
+
+        .scoreboard {
+            font-size: 22px;
+            text-align: left;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border-radius: 8px;
+            width: 180px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .score-X {
+            color: #00f;
+            font-weight: bold;
+        }
+
+        .score-O {
+            color: #f09;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div>
+        <div class="status" id="status"></div>
+        <div class="game-board" id="gameBoard"></div>
+        <button class="btn" onclick="restartGame()">Restart</button>
+        <button class="btn" onclick="goToHome()">Go Back to Home</button>
+    </div>
+
+    <div class="scoreboard">
+        <div>Player 1 (<span class="score-X">X</span>): <span id="player1Score">0</span></div>
+        <div>Player 2 (<span class="score-O">O</span>): <span id="player2Score">0</span></div>
+    </div>
+</div>
+
+<script>
+    let currentPlayer = "X";
+    let board = ["", "", "", "", "", "", "", "", ""];
+    let player1Score = 0;
+    let player2Score = 0;
+    let player1Symbol = "X";
+    let player2Symbol = "O";
+    let gameCount = 0;
+
+    function startSinglePlayer() {
+        document.querySelector(".container").classList.remove("hidden");
+        createBoard();
+        updateStatus();
+    }
+
+    function createBoard() {
+        const gameBoard = document.getElementById("gameBoard");
+        gameBoard.innerHTML = "";
+        board.forEach((cell, index) => {
+            const cellElement = document.createElement("div");
+            cellElement.classList.add("cell");
+            cellElement.dataset.index = index;
+            cellElement.addEventListener("click", handleMove);
+            gameBoard.appendChild(cellElement);
+        });
+    }
+
+    function handleMove(event) {
+        const index = event.target.dataset.index;
+        if (!board[index]) {
+            board[index] = currentPlayer;
+            event.target.textContent = currentPlayer;
+            event.target.classList.add(currentPlayer);
+
+            const winner = checkWinner();
+            if (winner) {
+                if (winner === player1Symbol) {
+                    player1Score++;
+                } else {
+                    player2Score++;
+                }
+                gameCount++;
+                updateScoreboard();
+                setTimeout(() => alert(`${winner} wins!`), 100);
+                restartGame();
+                checkOverallWinner();
+                return;
+            }
+
+            if (!board.includes("")) {
+                gameCount++;
+                setTimeout(() => alert("Draw!"), 100);
+                restartGame();
+                checkOverallWinner();
+                return;
+            }
+
+            currentPlayer = currentPlayer === "X" ? "O" : "X";
+            updateStatus();
+        }
+    }
+
+    function checkWinner() {
+        const winningCombinations = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6]
+        ];
+
+        for (const combination of winningCombinations) {
+            const [a, b, c] = combination;
+            if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                return board[a];
+            }
+        }
+        return null;
+    }
+
+    function updateStatus() {
+        const status = document.getElementById("status");
+        status.textContent = `Current Turn: ${currentPlayer} (${currentPlayer === player1Symbol ? "Player 1" : "Player 2"})`;
+        status.className = `status ${currentPlayer}`;
+    }
+
+    function updateScoreboard() {
+        document.getElementById("player1Score").textContent = player1Score;
+        document.getElementById("player2Score").textContent = player2Score;
+    }
+
+    function restartGame() {
+        board = ["", "", "", "", "", "", "", "", ""];
+        currentPlayer = "X";
+        createBoard();
+        updateStatus();
+    }
+
+    function goToHome() {
+        location.reload();
+    }
+</script>
+
+</body>
+</html>
