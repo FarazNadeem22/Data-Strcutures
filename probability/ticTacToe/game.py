@@ -39,7 +39,7 @@ def play_game():
 def simulate_games(num_games):
     results = {"X": 0, "O": 0, "Draw": 0}  # Dictionary to store results
     total_money = num_games * 2  # Each player pays $1 per game
-    platform_fee = total_money * 0.1  # Platform keeps 10%
+    platform_fee = total_money * 0.15  # Platform keeps 15%
     prize_pool = total_money - platform_fee  # Remaining money for winner
     
     for _ in range(num_games):
