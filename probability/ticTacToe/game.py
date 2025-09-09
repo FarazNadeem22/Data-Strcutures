@@ -23,7 +23,7 @@ def play_game():
     random.shuffle(moves)  # Shuffle moves to randomize gameplay
     
     # Introduce a 60% probability of a draw
-    if random.random() < 0.3:
+    if random.random() < 0.6:
         return "Draw"
     
     for move in moves:
@@ -39,7 +39,7 @@ def play_game():
 def simulate_games(num_games):
     results = {"X": 0, "O": 0, "Draw": 0}  # Dictionary to store results
     total_money = num_games * 2  # Each player pays $1 per game
-    platform_fee = total_money * 0.15  # Platform keeps 15%
+    platform_fee = total_money * 0.20  # Platform keeps 20%
     prize_pool = total_money - platform_fee  # Remaining money for winner
     
     for _ in range(num_games):

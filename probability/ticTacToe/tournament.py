@@ -2,8 +2,8 @@ import random
 
 # Function to simulate a single game
 def play_game():
-    # 70% chance of a tie
-    if random.random() < 0.70:
+    # 90% chance of a tie
+    if random.random() < 0.90:
         return "Tie"
     return random.choice(["X", "O"])
 
